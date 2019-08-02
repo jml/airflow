@@ -287,7 +287,7 @@ def correct_maybe_zipped(fileloc):
 COMMENT_PATTERN = re.compile(r"\s*#.*")
 
 
-def list_py_file_paths(directory, safe_mode=True,
+def list_py_file_paths(directory, safe_mode=None,
                        include_examples=None):
     """
     Traverse a directory and look for Python files.
@@ -299,6 +299,8 @@ def list_py_file_paths(directory, safe_mode=True,
     :return: a list of paths to Python files in the specified directory
     :rtype: list[unicode]
     """
+    if safe_mode is None:
+        safe_mode = conf.getboolean('core', 'DAG_DISCOVERY_SAFE_MODE')
     if include_examples is None:
         include_examples = conf.getboolean('core', 'LOAD_EXAMPLES')
     file_paths = []
